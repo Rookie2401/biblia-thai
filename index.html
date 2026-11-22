@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f2e8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16130f" media="(prefers-color-scheme: dark)">
+<title>Biblia — ไทย</title>
+  <script type="module" crossorigin src="./assets/index-BjmB0yTM.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CMEM1m-R.css">
+<meta name="biblia-edition" content="standalone">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Biblia ไทย">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+</head>
+<body>
+<noscript><p style="padding:1rem">Biblia needs JavaScript.</p></noscript>
+<!-- the loading mark of src/loading.ts (bookMark), here so that it paints before any script runs; test/biblia/loading.test.ts keeps the two the same -->
+<div id="app"><div class="bk-loading" role="status" aria-live="polite"><span class="bk" aria-hidden="true"><span class="bk-board"></span><span class="bk-page bk-page-left"></span><span class="bk-page bk-page-right"></span><span class="bk-leaf"></span><span class="bk-leaf"></span><span class="bk-leaf"></span><span class="bk-spine"></span></span><span class="bk-label">Opening Biblia…</span></div></div>
+<script>
+/* Biblia: registers the service worker once the page has loaded, and only over https or on localhost.
+ * Inlined into index.html by the standalone build (never present in the default or the extension build: an extension page
+ * must not register a worker).
+ * The worker takes over as soon as a new build is installed; when it replaces a worker that was already controlling this page the
+ * page reloads once, so the new shell and its new assets are what is on screen. The first install (no controller yet) does not reload. */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+  var host = location.hostname;
+  var secure = location.protocol === 'https:' || host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || /\.localhost$/.test(host);
+  if (!secure) return;
+
+  var hadController = !!navigator.serviceWorker.controller;
+  var reloading = false;
+
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (!hadController) { hadController = true; return; }   // the first worker claiming a page that had none: nothing to refresh
+    if (reloading) return;
+    reloading = true;
+    location.reload();
+  });
+
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').then(function (reg) {
+      // an installed app is rarely reloaded: look for a new build whenever it comes back to the foreground or the network returns
+      var check = function () { reg.update().catch(function () { /* offline */ }); };
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
+      window.addEventListener('online', check);
+    }).catch(function () { /* the app works without the worker */ });
+  });
+}());
+</script>
+</body>
+</html>

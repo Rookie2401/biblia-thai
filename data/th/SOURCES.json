@@ -1,0 +1,15 @@
+{
+  "text": {
+    "title": "Biblica® พระคริสตธรรมคัมภีร์ ฉบับไทยสามัญแบบเปิด™ (สงวนลิขสิทธิ์ © 2025 โดย Biblica, Inc.)",
+    "english": "Biblica® Open Thai Common Version™",
+    "copyright": "Copyright © 2025 by Biblica, Inc.",
+    "notice": "“Biblica” is a trademark registered in the United States Patent and Trademark Office by Biblica, Inc. Used with permission.",
+    "licence": "Creative Commons Attribution-ShareAlike 4.0 International",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source": "https://open.bible/bibles/biblica-open-thai-common-version-2025",
+    "sourceLabel": "Open.Bible",
+    "sourceDate": "release of 2025-03-01",
+    "changes": "The verse wording is unchanged. The section headings, parallel-passage references, speaker labels and footnotes of the edition are not shown, nor the numbers of the sixteen verses that modern texts omit and the OTCV gives only as a note (Matthew 17:21 …); the verses are laid out by Biblia. These changes are not endorsed by the original licensor."
+  },
+  "files": "The JSON files of this folder are the verses as Biblia reads them, shared under the same licence (Creative Commons Attribution-ShareAlike 4.0 International)."
+}
